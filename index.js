@@ -1,20 +1,21 @@
-const express = require('express')
+const express = require('express');
 const { MongoClient } = require('mongodb');
-const cors = require('cors')
-const fileupload = require('express-fileupload')
+const cors = require('cors');
+const fileupload = require('express-fileupload');
+require('dotenv').config();
 
-const app = express()
-const port = 5000 || process.env
+const app = express();
+const port = process.env.PORT || 5000;
 //middleware
-app.use(cors())
-app.use(express.json())
-app.use(fileupload())
+app.use(cors());
+app.use(express.json());
+app.use(fileupload());
 
 
 //username: classroom
 //password: QMegpSUbdry5tPmp
 
-const uri = "mongodb+srv://classroom:QMegpSUbdry5tPmp@cluster0.u5ucb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.u5ucb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function run() {
